@@ -1,3 +1,5 @@
+mod my_ui;
+
 use eframe::egui;
 
 fn main() -> eframe::Result {
