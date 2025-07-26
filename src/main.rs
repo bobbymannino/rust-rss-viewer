@@ -32,8 +32,9 @@ impl Default for MyApp {
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("RSS Viewer");
-            ui.label("Hi there");
+            ui.add(my_ui::labels::H1 {
+                text: "RSS Viewier".to_string(),
+            });
         });
     }
 }
