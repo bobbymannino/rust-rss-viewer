@@ -1,40 +1,21 @@
-mod my_ui;
+mod rss_app;
+mod rss_source;
+mod ui;
 
-use eframe::egui;
+use crate::rss_app::RssApp;
 
 fn main() -> eframe::Result {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([500.0, 500.0])
-            .with_min_inner_size([500.0, 500.0]),
+            .with_min_inner_size([500.0, 500.0])
+            .with_title("RSS Viewer"),
         ..Default::default()
     };
 
     eframe::run_native(
         "RSS Viewier",
         options,
-        Box::new(|cc| {
-            egui_extras::install_image_loaders(&cc.egui_ctx);
-
-            Ok(Box::<MyApp>::default())
-        }),
+        Box::new(|_cc| Ok(Box::new(RssApp::new()))),
     )
-}
-
-struct MyApp {}
-
-impl Default for MyApp {
-    fn default() -> Self {
-        Self {}
-    }
-}
-
-impl eframe::App for MyApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::CentralPanel::default().show(ctx, |ui| {
-            ui.add(my_ui::labels::H1 {
-                text: "RSS Viewier".to_string(),
-            });
-        });
-    }
 }
