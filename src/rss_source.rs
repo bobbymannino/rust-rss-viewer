@@ -12,4 +12,12 @@ impl RssSource {
         self.title = title;
         self.url = url;
     }
+
+    pub fn title(&self) -> &str {
+        &self.title
+    }
+
+    pub fn url(&self) -> &str {
+        &self.url
+    }
 }
