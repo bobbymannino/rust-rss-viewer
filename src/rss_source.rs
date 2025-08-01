@@ -20,4 +20,11 @@ impl RssSource {
     pub fn url(&self) -> &str {
         &self.url
     }
+
+    pub fn bobman() -> Self {
+        Self {
+            title: "Bobman".to_string(),
+            url: "https://bobman.com".to_string(),
+        }
+    }
 }

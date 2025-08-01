@@ -1,30 +1,39 @@
 use eframe::{App, CreationContext};
-use egui::CentralPanel;
+use egui::{Align, CentralPanel, Layout};
 
-use crate::ui::labels::H1;
+use crate::{
+    rss_source::RssSource,
+    ui::{labels::H1, rss::rss_source_list::RssSourceList},
+};
 
-#[derive(Default)]
-pub struct RssApp {}
+pub struct RssApp {
+    sources: Vec<RssSource>,
+}
 
 impl RssApp {
-    pub fn new(cc: &CreationContext<'_>) -> Self {
-        Self::default()
+    pub fn new(_cc: &CreationContext<'_>) -> Self {
+        Self {
+            sources: vec![RssSource::bobman()],
+        }
     }
 }
 
 impl App for RssApp {
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         CentralPanel::default().show(ctx, |ui| {
-            //.VolumeIcon.icns
-            ui.label("Hello there");
-            ui.add(H1::new("Heading 1".to_string()));
+            ui.add(H1::new("RSS Viewer".to_string()));
 
-            if ui.button("Close").clicked() {
-                let ctx = ctx.clone();
-                std::thread::spawn(move || {
-                    ctx.send_viewport_cmd(egui::ViewportCommand::Close);
-                });
-            }
+            ui.add(RssSourceList::new(&self.sources));
+
+            ui.with_layout(Layout::top_down_justified(Align::Center), |ui| {
+                let button = ui.button("Close");
+                if button.clicked() {
+                    let ctx = ctx.clone();
+                    std::thread::spawn(move || {
+                        ctx.send_viewport_cmd(egui::ViewportCommand::Close);
+                    });
+                }
+            });
         });
     }
 }
