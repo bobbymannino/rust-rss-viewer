@@ -1,10 +1,7 @@
 use eframe::{App, CreationContext};
 use egui::{Align, CentralPanel, Layout};
 
-use crate::{
-    rss_source::RssSource,
-    ui::{labels::H1, rss::rss_source_list::RssSourceList},
-};
+use crate::rss_source::RssSource;
 
 pub struct RssApp {
     sources: Vec<RssSource>,
@@ -21,9 +18,7 @@ impl RssApp {
 impl App for RssApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         CentralPanel::default().show(ctx, |ui| {
-            ui.add(H1::new("RSS Viewer".to_string()));
-
-            ui.add(RssSourceList::new(&self.sources));
+            ui.label("RSS Viewier");
 
             ui.with_layout(Layout::top_down_justified(Align::Center), |ui| {
                 let button = ui.button("Close");

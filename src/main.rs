@@ -5,7 +5,6 @@ use crate::rss_app::RssApp;
 
 mod rss_app;
 mod rss_source;
-mod ui;
 
 fn main() {
     let native_options = NativeOptions {
